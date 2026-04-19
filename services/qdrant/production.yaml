@@ -1,0 +1,4 @@
+log_level: INFO                   # Logging level: can be set to DEBUG, INFO, WARN, or ERROR
+
+storage:
+  storage_path: /qdrant/storage   # Internal path for storing data in the Qdrant container

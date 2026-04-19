@@ -1,0 +1,3 @@
+FROM qdrant/qdrant:v1.17
+
+RUN apt-get update && apt-get install -y curl iproute2 iputils-ping && rm -rf /var/lib/apt/lists/*

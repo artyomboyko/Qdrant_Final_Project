@@ -1,0 +1,77 @@
+name: qdrant_final_project
+
+networks:
+  qdrant_network:
+    driver: bridge
+
+volumes:
+  qdrant_storage:
+
+configs:
+  qdrant_config:
+    file: ./services/qdrant/production.yaml
+
+
+services:
+  qdrant:
+    container_name: qdrant
+    hostname: qdrant
+    build:
+      context: ./services/qdrant/
+      dockerfile: ./Dockerfile
+    networks:
+      - qdrant_network
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+      - "6335:6335"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    deploy:
+      resources:
+        reservations:
+          cpus: '2.0'
+          memory: 2G
+        limits:
+          cpus: '4.0'
+          memory: 4G
+    configs:
+      - source: qdrant_config
+        target: /qdrant/config/production.yaml
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/readyz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  dev_host:
+    container_name: dev_host
+    hostname: dev_host
+    build:
+      context: ./services/dev_host/
+      dockerfile: ./Dockerfile
+    env_file:
+      - .env
+    networks:
+      - qdrant_network
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/workspace
+    deploy:             
+      resources:
+        reservations:
+            cpus: '4.0'
+            memory: 16G 
+            devices:
+              - driver: nvidia
+                count: all
+                capabilities: [gpu]
+        limits:
+          cpus: '8.0'
+          memory: 32G
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    restart: unless-stopped
