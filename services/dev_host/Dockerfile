@@ -13,6 +13,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     git \
     build-essential \
     curl \
+    iputils-ping \
     cudnn9-cuda-12
 
 RUN --mount=type=cache,target=/root/.cache/uv \

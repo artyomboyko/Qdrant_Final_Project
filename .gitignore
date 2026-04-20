@@ -3,3 +3,4 @@
 
 # Dataset
 app/datasets/*
+app/dataset.parquet.gzip

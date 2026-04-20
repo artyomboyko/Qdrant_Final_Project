@@ -4,7 +4,8 @@ IProgress==0.4
 ipykernel==7.1.0
 ipywidgets==8.1.8
 kagglehub==1.0.0
-langchain-text-splitters==1.1.0
+langchain-experimental==0.4.1
+langchain-huggingface==1.2.2
 llama-index-core==0.14.13
 llama-index-embeddings-huggingface==0.6.1
 nltk==3.9.2
