@@ -10,6 +10,7 @@ llama-index-core==0.14.13
 llama-index-embeddings-huggingface==0.6.1
 nltk==3.9.2
 openai==2.17.0
+pandarallel==1.6.5
 pillow==11.3.0
 python-dotenv==1.2.1
 pymorphy3==2.0.6
