@@ -1,6 +1,5 @@
 # Environment variables for the Qdrant project
 .env
 
-# Dataset
-app/datasets/*
-app/dataset.parquet.gzip
+# Services volumes
+.devcontainer/volumes/
