@@ -1,24 +1,12 @@
 name: qdrant_final_project
 
-networks:
-  qdrant_network:
-    driver: bridge
-
-volumes:
-  qdrant_storage:
-
-configs:
-  qdrant_config:
-    file: ./services/qdrant/production.yaml
-
-
 services:
   qdrant:
     container_name: qdrant
     hostname: qdrant
     build:
-      context: ./services/qdrant/
-      dockerfile: ./Dockerfile
+      context: .
+      dockerfile: ./Dockerfile.qdrant
     networks:
       - qdrant_network
     ports:
@@ -49,16 +37,17 @@ services:
     container_name: dev_host
     hostname: dev_host
     build:
-      context: ./services/dev_host/
-      dockerfile: ./Dockerfile
+      context: .
+      dockerfile: ./Dockerfile.dev_host
     env_file:
-      - .env
+      - .env.dev_host
     networks:
       - qdrant_network
     ports:
       - "8000:8000"
     volumes:
-      - .:/workspace
+      - ../:/workspace
+    command: sleep infinity
     deploy:             
       resources:
         reservations:
@@ -75,3 +64,18 @@ services:
       qdrant:
         condition: service_healthy
     restart: unless-stopped
+
+networks:
+  qdrant_network:
+    driver: bridge
+
+volumes:
+  qdrant_storage:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./volumes/qdrant
+configs:
+  qdrant_config:
+    file: ./production.yaml
