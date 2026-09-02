@@ -37,8 +37,8 @@ services:
     container_name: dev_host
     hostname: dev_host
     build:
-      context: .
-      dockerfile: ./Dockerfile.dev_host
+      context: ..
+      dockerfile: .devcontainer/Dockerfile.dev_host
     env_file:
       - .env.dev_host
     networks:

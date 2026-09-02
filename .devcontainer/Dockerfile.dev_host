@@ -1,14 +1,20 @@
 FROM huggingface/transformers-all-latest-gpu:latest
 
-ENV LANG=C.UTF-8
-ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8 \
+    UV_LINK_MODE=copy \
+    UV_PROJECT_ENVIRONMENT=/opt/venv \
+    PATH="/opt/venv/bin:$PATH"
 
-RUN apt-get update && apt-get install -y  && rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git curl \
+    && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt /tmp/requirements.txt
-RUN --mount=type=cache,target=/root/.cache/pip \
-    python3 -m pip install -r /tmp/requirements.txt
+RUN python3 -m pip install --no-cache-dir uv
+
+COPY pyproject.toml uv.lock /tmp/project/
+
+RUN cd /tmp/project \
+    && uv sync --locked --group dev
 
 WORKDIR /workspace
-
-

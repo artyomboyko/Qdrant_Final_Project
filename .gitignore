@@ -1,5 +1,8 @@
 # Environment variables for the Qdrant project
 .env
+.venv/
 
 # Services volumes
 .devcontainer/volumes/
+
+
