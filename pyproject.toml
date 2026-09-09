@@ -12,9 +12,14 @@ dependencies = [
     "plotly>=7.0.0",
     "ranx>=0.3.21",
     "pandas>=2.3.3",
+    "tqdm>=4.70.0",
+    "pillow>=12.3.0",
+    "onnxruntime-gpu[cuda,cudnn]==1.23.2",
 ]
 
 [dependency-groups]
 dev = [
     "ipykernel",
+    "ipywidgets>=8.1.9",
+    "nbformat>=5.11.1",
 ]

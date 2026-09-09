@@ -1,8 +1,20 @@
-# Environment variables for the Qdrant project
+# Environment
 .env
 .venv/
 
-# Services volumes
+# Service volumes
 .devcontainer/volumes/
 
+# Raw data
+data/raw/
 
+# Generated research results
+data/processed/chunking_ablation.csv
+data/processed/hnsw_benchmark.csv
+data/processed/payload_filter_benchmark.csv
+data/processed/quantization_benchmark.csv
+data/processed/retrieval_ablation_results.csv
+
+# Python / Jupyter
+__pycache__/
+.ipynb_checkpoints/
