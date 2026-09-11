@@ -1,6 +1,8 @@
 # Environment
 .env
-.venv/
+.env.*
+!.env.example
+!.env.*.example
 
 # Service volumes
 .devcontainer/volumes/

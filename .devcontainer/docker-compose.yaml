@@ -52,18 +52,61 @@ services:
       resources:
         reservations:
             cpus: '4.0'
-            memory: 16G 
-            devices:
-              - driver: nvidia
-                count: all
-                capabilities: [gpu]
+            memory: 8G 
         limits:
           cpus: '8.0'
-          memory: 32G
+          memory: 16G
     depends_on:
       qdrant:
         condition: service_healthy
     restart: unless-stopped
+
+  vllm-gemma4-12b:
+    container_name: vllm-gemma4-12b
+    hostname: vllm-gemma4-12b
+    image: vllm/vllm-openai:v0.29.0-cu129
+    env_file:
+      - .env.vllm
+    volumes:
+      - ./volumes/vllm/huggingface:/root/.cache/huggingface
+    shm_size: "8gb"
+    networks:
+      - qdrant_network
+    ports:
+      - "127.0.0.1:8001:8000"
+    healthcheck:
+        test:
+          [
+            "CMD-SHELL",
+            "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=5)\""
+          ]
+    command: >
+      google/gemma-4-12B-it-qat-w4a16-ct
+      --served-model-name gemma-4-12b-it
+      --tensor-parallel-size 1
+      --enable-auto-tool-choice
+      --tool-call-parser gemma4
+      --chat-template examples/tool_chat_template_gemma4.jinja
+      --reasoning-parser gemma4
+      --max-model-len 16384
+      --gpu-memory-utilization 0.85
+      --language-model-only
+      --host 0.0.0.0
+      --port 8000
+    deploy:
+      resources:
+        reservations:
+          cpus: "2.0"
+          memory: 8G
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+        limits:
+          cpus: "4.0"
+          memory: 14G
+    restart: unless-stopped
+
 
 networks:
   qdrant_network:
@@ -76,6 +119,7 @@ volumes:
       type: none
       o: bind
       device: ./volumes/qdrant
+
 configs:
   qdrant_config:
     file: ./production.yaml
