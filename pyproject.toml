@@ -9,12 +9,14 @@ dependencies = [
     "python-dotenv==1.2.3",
     "python-frontmatter==1.3.0",
     "markdown-it-py==4.2.0",
+    "numpy>=2.0,<3",
+    "pandas>=2.3.3",
     "plotly>=7.0.0",
     "ranx>=0.3.21",
-    "pandas>=2.3.3",
     "tqdm>=4.70.0",
     "pillow>=12.3.0",
     "onnxruntime-gpu[cuda,cudnn]==1.23.2",
+    "openai>=3.0,<4",
 ]
 
 [dependency-groups]
@@ -23,3 +25,6 @@ dev = [
     "ipywidgets>=8.1.9",
     "nbformat>=5.11.1",
 ]
+
+# torch and transformers are supplied by the GPU base image
+# defined in .devcontainer/Dockerfile.dev_host.

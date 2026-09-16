@@ -1,4 +1,4 @@
-FROM huggingface/transformers-all-latest-gpu:latest
+FROM huggingface/transformers-all-latest-gpu@sha256:4175a7cc4609799c003c875088510bdd31f76ad17b1e6e8fee16486b342c4e1a
 
 ENV LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \

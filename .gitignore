@@ -1,22 +1,67 @@
-# Environment
+# ------------------------------------------------------------
+# Secrets / local environment
+# ------------------------------------------------------------
 .env
 .env.*
 !.env.example
 !.env.*.example
 
-# Service volumes
+
+# ------------------------------------------------------------
+# Dev Container runtime state
+# ------------------------------------------------------------
 .devcontainer/volumes/
 
-# Raw data
-data/raw/
 
-# Generated research results
-data/processed/chunking_ablation.csv
-data/processed/hnsw_benchmark.csv
-data/processed/payload_filter_benchmark.csv
-data/processed/quantization_benchmark.csv
-data/processed/retrieval_ablation_results.csv
+# ------------------------------------------------------------
+# Generated experiment artifacts
+# ------------------------------------------------------------
+artifacts/*
+!artifacts/.gitkeep
 
-# Python / Jupyter
+
+# ------------------------------------------------------------
+# Downloaded and generated data
+# ------------------------------------------------------------
+data/raw/*
+!data/raw/.gitkeep
+
+data/processed/*
+!data/processed/.gitkeep
+
+
+# ------------------------------------------------------------
+# Python
+# ------------------------------------------------------------
 __pycache__/
+*.py[cod]
+*$py.class
+
+.venv/
+venv/
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+
+# ------------------------------------------------------------
+# Jupyter
+# ------------------------------------------------------------
 .ipynb_checkpoints/
+
+
+# ------------------------------------------------------------
+# Logs / temporary files
+# ------------------------------------------------------------
+*.log
+*.tmp
+
+
+# ------------------------------------------------------------
+# OS-generated files
+# ------------------------------------------------------------
+.DS_Store
+Thumbs.db
