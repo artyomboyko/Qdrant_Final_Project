@@ -1,5 +1,11 @@
 # Qdrant Documentation Search & RAG Research
 
+<p align="center">
+  <img src="img/Qdrant_Final_Project.png"
+       alt="Qdrant Documentation Search & RAG Research"
+       width="100%">
+</p>
+
 A production-oriented documentation search and RAG research project developed as the **final project for the Qdrant Essentials course**.
 
 The project is based on the official Day 6 assignment — **[Final Project: Production-Ready Documentation Search Engine](https://qdrant.tech/course/essentials/day-6/final-project/)** — and extends the original task with systematic retrieval experiments, Qdrant Cloud deployment, Context Engineering research, grounded generation, LLM-as-a-Judge evaluation, and separate confirmation and final-holdout validation stages.
